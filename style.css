@@ -223,6 +223,7 @@ body {
     color: #FFFFFF;
     background: var(--color-gradient);
     transition: all 0.3s ease;
+    margin-left: auto;
 }
 
 .prompt-actions .generate-btn:hover {
@@ -238,12 +239,17 @@ body {
 }
 
 .galary-grid .img-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     position: relative;
     overflow: hidden;
     background: var(--color-input);
     border: 1px solid var(--color-border);
     aspect-ratio: 1;
     border-radius: 16px;
+    transition: all 0.4s ease;
 }
 
 .galary-grid .img-card .result-img {
@@ -288,11 +294,58 @@ body {
     background: rgba(255, 255, 255, 0.5);
 }
 
-.galary-grid .img-card:hover {
+.galary-grid .img-card:not(.loading, .error):hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0,1);
 }
 
 .galary-grid .img-card {
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
+}
+
+.galary-grid .img-card:is(.loading, .error) :is(.result-img, .img-overlay) {
+    display: none;
+}
+
+.galary-grid .img-card .status-container {
+    padding: 15px;
+    display: none;
+    gap: 15px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.galary-grid .img-card:where(.lodaing, .error) .status-container {
+    display: flex;
+}
+
+.galary-grid .img-card.loading .spinner,
+.galary-grid .img-card.error .status-container i {
+    display: block;
+}
+
+.galary-grid .img-card.error .status-container i {
+    font-size: 1.7rem;
+    color: #ef4444;
+}
+
+.galary-grid .img-card.loading .spinner {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 3px solid var(--color-border);
+    border-top-color: var(--color-primary);
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.galary-grid .img-card .status-text {
+    color: var(--color-placeholder);
+    font-size: 0.85rem;
+    text-align: center;
 }
