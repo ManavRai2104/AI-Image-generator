@@ -22,6 +22,18 @@
   --color-gradient: linear-gradient(135deg, #5C56E1,  #8B5CF6);
 }
 
+body.dark-theme {
+  --color-card: #1E293B;
+  --color-input: #141B2D;
+  --color-text: #F3F4F6;
+  --color-placeholder: #A3B6DC;
+  --color-border: #334155;
+
+  background: var(--color-card);
+  background-image: radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 35%), 
+  radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 35%), radial-gradient(circle at 50% 80%, rgba(99, 102, 241, 0.1) 0%, transparent 40%);
+}
+
 body {
     display: flex;
     align-items: center;
@@ -41,6 +53,10 @@ body {
     box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 1.5);
     position: relative;
     overflow: hidden;
+}
+
+body.dark-theme .container {
+    border: 1px solid var(--color-border);
 }
 
 .container::before {
@@ -184,6 +200,7 @@ body {
     outline: none;
     height: 100%;
     appearance: none;
+    color: var(--color-text);
 }
 
 .prompt-actions .custom-select:is(:focus , :hover){
@@ -319,9 +336,9 @@ body {
     display: flex;
 }
 
-.galary-grid .img-card.loading .spinner,
-.galary-grid .img-card.error .status-container i {
-    display: block;
+.galary-grid .img-card.loading .status-container i ,
+.galary-grid .img-card.error .spinner i {
+    display: none;
 }
 
 .galary-grid .img-card.error .status-container i {
@@ -349,3 +366,27 @@ body {
     font-size: 0.85rem;
     text-align: center;
 }
+
+/* Hide image & overlay when loading or error */
+.galary-grid .img-card:is(.loading, .error) :is(.result-img, .img-overlay) {
+  display: none;
+}
+
+/* Show status container only when loading or error */
+.galary-grid .img-card:is(.loading, .error) .status-container {
+  display: flex;
+}
+
+/* Default: show both elements off (will be controlled below) */
+.galary-grid .img-card .status-container .spinner { display: none; }
+.galary-grid .img-card .status-container i { display: none; }
+
+/* While loading: show spinner, hide error icon */
+.galary-grid .img-card.loading .status-container .spinner { display: block; }
+.galary-grid .img-card.loading .status-container i { display: none; }
+
+/* On error: show error icon, hide spinner */
+.galary-grid .img-card.error .status-container .spinner { display: none; }
+.galary-grid .img-card.error .status-container i { display: block; color: #ef4444; }
+
+/* Keep the rest of your existing status styles */
