@@ -261,13 +261,38 @@ body {
     padding: 20px;
     display: flex;
     justify-content: flex-end;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
 }
+
+.galary-grid .img-card:hover .img-overlay {
+    opacity: 1;
+    pointer-events: auto;
+}
+
 .galary-grid .img-card .img-overlay .img-download-btn {
     height: 45px;
     width: 45px;
-    backdrop-filter: 5px;
+    backdrop-filter: blur(5px);
     background: rgba(255, 255, 255, 0.25);
     border-radius: 50%;
     color: #FFFFFF;
     border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.galary-grid .img-card .img-overlay .img-download-btn:hover {
+    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.galary-grid .img-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0,1);
+}
+
+.galary-grid .img-card {
+    transition: all 0.3s ease;
 }
